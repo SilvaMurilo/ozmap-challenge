@@ -1,0 +1,94 @@
+{
+  "cables": [
+    {
+      "id": 1,
+      "name": "Fiber Route A",
+      "capacity": 144,
+      "boxes_connected": [1, 2],
+      "path": [
+        { "lat": -27.595377, "lng": -48.54805 },
+        { "lat": -27.597712, "lng": -48.547623 },
+        { "lat": -27.59934, "lng": -48.54718 },
+        { "lat": -27.601126, "lng": -48.546673 }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Fiber Route B",
+      "capacity": 72,
+      "boxes_connected": [3],
+      "path": [
+        { "lat": -27.601126, "lng": -48.546673 },
+        { "lat": -27.602954, "lng": -48.546218 },
+        { "lat": -27.604785, "lng": -48.545678 }
+      ]
+    }
+  ],
+  "drop_cables": [
+    { "id": 1, "name": "Drop Cable 1", "box_id": 1, "customer_id": 1 },
+    { "id": 2, "name": "Drop Cable 2", "box_id": 2, "customer_id": 2 },
+    { "id": 3, "name": "Drop Cable 3", "box_id": 2, "customer_id": 3 },
+    { "id": 4, "name": "Drop Cable 4", "box_id": 3, "customer_id": 4 },
+    { "id": 5, "name": "Drop Cable 5", "box_id": 3, "customer_id": 5 }
+  ],
+  "boxes": [
+    {
+      "id": 1,
+      "name": "Box 1",
+      "type": "Nap",
+      "lat": -27.597712,
+      "lng": -48.547623
+    },
+    {
+      "id": 2,
+      "name": "Box 2",
+      "type": "Nap",
+      "lat": -27.59934,
+      "lng": -48.54718
+    },
+    {
+      "id": 3,
+      "name": "Box 3",
+      "type": "Splitter",
+      "lat": -27.604785,
+      "lng": -48.545678
+    }
+  ],
+  "customers": [
+    {
+      "id": 1,
+      "code": "CUST-001",
+      "name": "John Doe",
+      "address": "123 Main Street",
+      "box_id": 1
+    },
+    {
+      "id": 2,
+      "code": "CUST-002",
+      "name": "Alice Johnson",
+      "address": "456 Ocean Ave",
+      "box_id": 2
+    },
+    {
+      "id": 3,
+      "code": "CUST-003",
+      "name": "Bob Smith",
+      "address": "789 Sunset Blvd",
+      "box_id": 2
+    },
+    {
+      "id": 4,
+      "code": "CUST-004",
+      "name": "Carlos Silva",
+      "address": "101 Central Park",
+      "box_id": 3
+    },
+    {
+      "id": 5,
+      "code": "CUST-005",
+      "name": "Emma Williams",
+      "address": "202 Greenway Drive",
+      "box_id": 3
+    }
+  ]
+}
