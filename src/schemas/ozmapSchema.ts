@@ -10,12 +10,12 @@ export const ProspectSchema = z.object({
   external_id: Str36.optional(),
 });
 
-export const BoxSchema = z.object({
-  project: z.string().max(36).default("Murilo's Net"),
+export const BoxSchema = z.object({  
   name: Str100.optional(),
   kind: z.enum(["Box", "Building", "Property", "Pop"]),
   coords: z.tuple([z.number(), z.number()]),
   external_id: Str36.optional(),
+  project: z.string().max(36).optional()
 });
 
 const PoleSchema = z.object({
@@ -23,8 +23,7 @@ const PoleSchema = z.object({
   lng: z.number().min(-180).max(180),
 });
 
-export const CableSchema = z.object({
-  project: z.string().max(36).default("Murilo's Net"),
+export const CableSchema = z.object({  
   cable_type: Str100,
   box_a: z.string().max(8),
   box_b: z.string().max(8),
@@ -43,8 +42,9 @@ export const CableSchema = z.object({
   ),
   box_id: z.number().int().nonnegative().optional(),
   prospects_id: z.number().int().nonnegative().optional(),
+  project: z.string().max(36).optional()
 });
 
-export type Prospect = z.infer<typeof ProspectSchema>;
-export type Box = z.infer<typeof BoxSchema>;
-export type Cable = z.infer<typeof CableSchema>;
+export type ProspectOZmap = z.infer<typeof ProspectSchema>;
+export type BoxOZmap = z.infer<typeof BoxSchema>;
+export type CableOZmap = z.infer<typeof CableSchema>;
