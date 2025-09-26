@@ -4,7 +4,7 @@ const Id = z.number().int().positive();
 const Lat = z.number().min(-90).max(90);
 const Lng = z.number().min(-180).max(180);
 
-export const GeoPointSchema = z.object({
+const GeoPointSchema = z.object({
   lat: Lat,
   lng: Lng,
 });
@@ -40,7 +40,7 @@ export const CustomerSchema = z.object({
   box_id: Id,
 });
 
-export type Cable = z.infer<typeof CableSchema>;
-export type DropCable = z.infer<typeof DropCableSchema>;
-export type Box = z.infer<typeof BoxSchema>;
-export type Customer = z.infer<typeof CustomerSchema>;
+export type CableIsp = z.infer<typeof CableSchema>;
+export type DropCableIsp = z.infer<typeof DropCableSchema>;
+export type BoxIsp = z.infer<typeof BoxSchema>;
+export type CustomerIsp = z.infer<typeof CustomerSchema>;
