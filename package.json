@@ -7,18 +7,23 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "mock:ozmap": "tsx mock/server.ts"
+    "mock:ozmap": "tsx watch mock/server.ts",
+    "test": "vitest",
+    "test:watch": "vitest --watch"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "json-server": "^0.17.4",
     "kysely": "^0.28.7",
     "mysql2": "^3.15.1",
     "tsx": "^4.20.5",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
   },
   "dependencies": {
     "@ozmap/ozmap-sdk": "^1.1.5",
+    "axios": "^1.12.2",
     "express": "^5.1.0",
     "zod": "^4.1.11"
   }
