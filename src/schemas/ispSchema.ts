@@ -40,14 +40,6 @@ export const CustomerSchema = z.object({
   box_id: Id,
 });
 
-export const NetworkSchema = z.object({
-  cables: z.array(CableSchema),
-  drop_cables: z.array(DropCableSchema),
-  boxes: z.array(BoxSchema),
-  customers: z.array(CustomerSchema),
-});
-
-export type Network = z.infer<typeof NetworkSchema>;
 export type Cable = z.infer<typeof CableSchema>;
 export type DropCable = z.infer<typeof DropCableSchema>;
 export type Box = z.infer<typeof BoxSchema>;
