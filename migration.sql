@@ -11,7 +11,7 @@ CREATE TABLE prospects (
 
 CREATE TABLE boxes (
   id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  project VARCHAR(36) NOT NULL DEFAULT 'Murilo''s Net',
+  project VARCHAR(36),
   name VARCHAR(100),
   kind ENUM('Box','Building','Property','Pop') NOT NULL,
   coords JSON NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE boxes (
 
 CREATE TABLE cables (
   id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  project VARCHAR(36) NOT NULL DEFAULT 'Murilo''s Net',
+  project VARCHAR(36),
   cable_type VARCHAR(100) NOT NULL,
   box_a VARCHAR(8) NOT NULL,
   box_b VARCHAR(8) NOT NULL,
