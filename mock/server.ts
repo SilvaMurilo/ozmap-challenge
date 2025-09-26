@@ -1,0 +1,23 @@
+import express, { Request, Response, NextFunction } from 'express'
+import { db } from '../src/config/db' // Kysely (mysql2)
+import { createCableService } from '../src/services/cables';
+
+const app = express();
+app.use(express.json());
+
+app.get('/api/v2/health', (_req: Request, res: Response) => res.json({ ok: true }))
+
+
+app.post('/api/v2/cables', async (req: Request, res: Response) => {  
+    const result = await createCableService(req.body);
+    return res.status(201).json(result);
+})
+
+app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+  console.error(err)
+  res.status(500).json({ error: err?.message ?? 'Erro interno' })
+})
+
+app.listen(9994, () => {
+  console.log('OZmap MySQL mock on http://localhost:9994/api/v2')
+})
