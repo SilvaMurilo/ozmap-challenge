@@ -39,12 +39,11 @@ export async function createCableService(raw: unknown) {
   const commonCableParsed = IspCableSchema.safeParse(raw);
   const dropCableParsed = IspDropCableSchema.safeParse(raw);
   let ozFormat;
-  if (commonCableParsed.success) {
+  if (commonCableParsed.success)
     ozFormat = normalizeIspCableToOz(commonCableParsed.data);
-    
-  } else if (dropCableParsed.success) {
-    ozFormat = normalizeIspDropCableToOz(dropCableParsed.data);        
-  }
+  else if (dropCableParsed.success)
+    ozFormat = normalizeIspDropCableToOz(dropCableParsed.data);
+
   const ozPayload = OzCableSchema.parse(ozFormat);
   return insertCable(ozPayload);
 }
