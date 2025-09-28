@@ -1,4 +1,3 @@
-// cable.repo.ts
 import { db } from '../config/db';
 import { sql } from 'kysely';
 import { CableOZmap } from '../schemas/ozmapSchema';

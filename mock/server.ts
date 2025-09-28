@@ -1,5 +1,4 @@
 import express, { Request, Response, NextFunction } from 'express'
-import { db } from '../src/config/db' // Kysely (mysql2)
 import { createCableService } from '../src/services/cables';
 
 const app = express();
