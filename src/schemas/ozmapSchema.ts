@@ -25,10 +25,10 @@ const PoleSchema = z.object({
 
 export const CableSchema = z.object({  
   cable_type: Str100,
-  box_a: z.string().max(8),
-  box_b: z.string().max(8),
+  box_a: z.string().max(8).optional(),
+  box_b: z.string().max(8).optional(),
   name: Str100,
-  poles: z.array(PoleSchema).min(1),
+  poles: z.array(PoleSchema).min(1).optional(),
   external_id: Str36,
   length: z.preprocess(
     (v) => (typeof v === "string" ? Number(v) : v),
@@ -39,7 +39,7 @@ export const CableSchema = z.object({
         (n) => Math.round(n * 100) === n * 100,
         "deve ter 2 casas decimais"
       )
-  ),
+  ).optional(),
   box_id: z.number().int().nonnegative().optional(),
   prospects_id: z.number().int().nonnegative().optional(),
   project: z.string().max(36).optional()

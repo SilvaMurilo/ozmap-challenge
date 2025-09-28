@@ -17,7 +17,7 @@ export const CableSchema = z.object({
   path: z.array(GeoPointSchema).min(2),
 });
 
-export const DropCableSchema = z.object({
+export const IspDropCableSchema = z.object({
   id: Id,
   name: z.string().min(1),
   box_id: Id,
@@ -41,6 +41,6 @@ export const CustomerSchema = z.object({
 });
 
 export type CableIsp = z.infer<typeof CableSchema>;
-export type DropCableIsp = z.infer<typeof DropCableSchema>;
+export type DropCableIsp = z.infer<typeof IspDropCableSchema>;
 export type BoxIsp = z.infer<typeof BoxSchema>;
 export type CustomerIsp = z.infer<typeof CustomerSchema>;
