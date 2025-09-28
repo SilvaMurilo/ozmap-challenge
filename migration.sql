@@ -12,10 +12,10 @@ CREATE TABLE prospects (
 CREATE TABLE boxes (
   id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   project VARCHAR(36),
-  name VARCHAR(100),
-  kind ENUM('Box','Building','Property','Pop') NOT NULL,
+  name VARCHAR(100) NOT NULL,
+  kind ENUM('Box','Building','Property','Pop', 'Splitter', 'Nap') NOT NULL,
   coords JSON NOT NULL,
-  external_id VARCHAR(36),
+  external_id VARCHAR(36) NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
