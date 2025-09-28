@@ -6,17 +6,9 @@ import { CableOZmap } from '../schemas/ozmapSchema';
 export async function insertCable(dto: CableOZmap) {
   const result = await db
     .insertInto('cables')
-    .values({      
-      cable_type: String(dto.cable_type),
-      box_a: String(dto.box_a),
-      box_b: String(dto.box_b),
-      name: String(dto.name),
-      poles: JSON.stringify(dto.poles),
-      external_id: String(dto.external_id),
-      length: Number(dto.length),
-      project: String(dto.project ?? ''),
-      box_id: dto.box_id ?? null,
-      prospects_id: dto.prospects_id ?? null,
+    .values({
+      ...dto,
+      poles: JSON.stringify(dto.poles)
     })
     .executeTakeFirstOrThrow();
 
