@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express'
 import { createCableService } from '../src/services/cableService';
 import { createBoxService } from '../src/services/boxService';
+import { createProspectService } from '../src/services/prospectService';
 
 const app = express();
 app.use(express.json());
@@ -15,6 +16,11 @@ app.post('/api/v2/cables', async (req: Request, res: Response) => {
 
 app.post('/api/v2/boxes', async (req: Request, res: Response) => {  
     const result = await createBoxService(req.body);
+    return res.status(201).json(result);
+});
+
+app.post('/api/v2/prospects', async (req: Request, res: Response) => {  
+    const result = await createProspectService(req.body);
     return res.status(201).json(result);
 });
 
