@@ -8,7 +8,6 @@ import {
   CableSchema as OzCableSchema,
   type CableOZmap,
 } from "../schemas/ozmapSchema";
-import { CableSchema } from "@ozmap/ozmap-sdk";
 
 function normalizeIspCableToOz(
   input: z.infer<typeof IspCableSchema>
@@ -38,19 +37,14 @@ function normalizeIspDropCableToOz(
 
 export async function createCableService(raw: unknown) {
   const commonCableParsed = IspCableSchema.safeParse(raw);
-  
   const dropCableParsed = IspDropCableSchema.safeParse(raw);
-  
-  let ozPayload;
+  let ozFormat;
   if (commonCableParsed.success) {
-    console.log("commonCableParsed", commonCableParsed);
-    const ozFormat = normalizeIspCableToOz(commonCableParsed.data);
-    ozPayload = OzCableSchema.parse(ozFormat);
+    ozFormat = normalizeIspCableToOz(commonCableParsed.data);
+    
   } else if (dropCableParsed.success) {
-    console.log("dropCableParsed", dropCableParsed);
-    const ozFormat = normalizeIspDropCableToOz(dropCableParsed.data);
-    ozPayload = OzCableSchema.parse(ozFormat);
-    console.log(ozPayload)
+    ozFormat = normalizeIspDropCableToOz(dropCableParsed.data);        
   }
+  const ozPayload = OzCableSchema.parse(ozFormat);
   return insertCable(ozPayload);
 }

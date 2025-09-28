@@ -27,7 +27,7 @@ export const IspDropCableSchema = z.object({
 export const IspBoxSchema = z.object({
   id: Id,
   name: z.string().min(1),
-  type: z.enum(['Box','Building','Property','Pop', 'Splitter', 'Nap']),
+  type: z.enum(["Box", "Building", "Property", "Pop", "Splitter", "Nap"]),
   lat: Lat,
   lng: Lng,
 });

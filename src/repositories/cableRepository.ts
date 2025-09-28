@@ -1,13 +1,13 @@
-import { db } from '../config/db';
-import { sql } from 'kysely';
-import { CableOZmap } from '../schemas/ozmapSchema';
+import { db } from "../config/db";
+import { sql } from "kysely";
+import { CableOZmap } from "../schemas/ozmapSchema";
 
 export async function insertCable(dto: CableOZmap) {
   const result = await db
-    .insertInto('cables')
+    .insertInto("cables")
     .values({
       ...dto,
-      poles: JSON.stringify(dto.poles)
+      poles: JSON.stringify(dto.poles),
     })
     .executeTakeFirstOrThrow();
 
@@ -15,21 +15,21 @@ export async function insertCable(dto: CableOZmap) {
     (result as unknown as { insertId?: number }).insertId ??
     (
       await db
-        .selectFrom('cables')
-        .select(sql<number>`LAST_INSERT_ID()`.as('id'))
+        .selectFrom("cables")
+        .select(sql<number>`LAST_INSERT_ID()`.as("id"))
         .executeTakeFirst()
     )?.id;
 
   if (!insertId) return null;
 
   const row = await db
-    .selectFrom('cables')
+    .selectFrom("cables")
     .selectAll()
-    .where('id', '=', Number(insertId))
+    .where("id", "=", Number(insertId))
     .executeTakeFirstOrThrow();
 
   return {
     ...row,
-    poles: typeof row.poles === 'string' ? JSON.parse(row.poles) : row.poles,
+    poles: typeof row.poles === "string" ? JSON.parse(row.poles) : row.poles,
   };
 }

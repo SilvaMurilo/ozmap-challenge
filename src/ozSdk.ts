@@ -4,26 +4,27 @@ import axios from "axios";
 import { CableOZmap } from "./schemas/ozmapSchema";
 import { BoxIsp, CableIsp, DropCableIsp } from "./schemas/ispSchema";
 
-const OZMAP_BASE_URL = process.env.OZMAP_BASE_URL ?? "http://localhost:9994/api/v2";
-const OZMAP_API_KEY  = process.env.OZMAP_API_KEY  ?? "TEST";
-export const oz: any = new (OZMapSDK as any)(OZMAP_BASE_URL, { apiKey: OZMAP_API_KEY });
+const OZMAP_BASE_URL =
+  process.env.OZMAP_BASE_URL ?? "http://localhost:9994/api/v2";
+const OZMAP_API_KEY = process.env.OZMAP_API_KEY ?? "TEST";
+export const oz: any = new (OZMapSDK as any)(OZMAP_BASE_URL, {
+  apiKey: OZMAP_API_KEY,
+});
 
-
-
-export async function createCable(body: CableIsp | DropCableIsp) {  
-    const res = await axios.post(`${OZMAP_BASE_URL}/cables`, body, {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-    return res.data;
+export async function createCable(body: CableIsp | DropCableIsp) {
+  const res = await axios.post(`${OZMAP_BASE_URL}/cables`, body, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return res.data;
 }
 
-export async function createBox(body: BoxIsp) {  
-    const res = await axios.post(`${OZMAP_BASE_URL}/boxes`, body, {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-    return res.data;
+export async function createBox(body: BoxIsp) {
+  const res = await axios.post(`${OZMAP_BASE_URL}/boxes`, body, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return res.data;
 }
