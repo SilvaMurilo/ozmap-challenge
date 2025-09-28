@@ -1,6 +1,6 @@
 import { db } from "../config/db";
 import { sql } from "kysely";
-import { BoxOZmap, CableOZmap } from "../schemas/ozmapSchema";
+import { BoxOZmap } from "../schemas/ozmapSchema";
 
 export async function insertBox(dto: BoxOZmap) {
   const result = await db

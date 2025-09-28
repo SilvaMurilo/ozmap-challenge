@@ -20,6 +20,5 @@ function normalizeIspBoxToOz(input: BoxIsp): BoxOZmap {
 export async function createBoxService(raw: unknown) {
   const boxParsed = IspBoxSchema.safeParse(raw);
   const ozPayload = OzmapBoxSchema.parse(normalizeIspBoxToOz(boxParsed.data));
-  console.log("ozPayload", ozPayload);
   return insertBox(ozPayload);
 }
