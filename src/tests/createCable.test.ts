@@ -2,12 +2,18 @@ import { externalId } from "@ozmap/ozmap-sdk";
 import { createCable } from "../ozSdk";
 import { expect, it } from "vitest";
 
-async function createCableServices(payload: any) {
+it("Should create a drop cable", async () => {
+  const payload = {
+    id: 1,
+    name: "Drop Cable 1",
+    box_id: 1,
+    customer_id: 1,
+  };
   const result = await createCable(payload);
-  return result;
-}
+  expect(result.name).toBe("Drop Cable 1");
+});
 
-it("Should criar cabo", async () => {
+it("Should create a fiber cable", async () => {
   const payload = {
     id: 1,
     name: "Fiber Route A",
