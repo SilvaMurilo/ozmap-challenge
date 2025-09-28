@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { insertCable } from "../repositories/cable";
+import { insertCable } from "../repositories/cableRepository";
 import {
   CableSchema as IspCableSchema,
   IspDropCableSchema,

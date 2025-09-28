@@ -1,4 +1,3 @@
-import { externalId } from "@ozmap/ozmap-sdk";
 import { createCable } from "../ozSdk";
 import { expect, it } from "vitest";
 
