@@ -4,10 +4,11 @@ const Str36 = z.string().max(36);
 const Str100 = z.string().max(100);
 
 export const ProspectSchema = z.object({
-  code: Str100.optional(),
-  name: Str100.optional(),
-  address: z.string().max(255).optional(),
-  external_id: Str36.optional(),
+  code: Str100,
+  name: Str100,
+  address: z.string().max(255),
+  external_id: Str36,
+  box_id: z.number().int().nonnegative()
 });
 
 export const OzmapBoxSchema = z.object({
