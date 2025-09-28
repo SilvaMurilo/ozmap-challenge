@@ -24,10 +24,10 @@ export const IspDropCableSchema = z.object({
   customer_id: Id,
 });
 
-export const BoxSchema = z.object({
+export const IspBoxSchema = z.object({
   id: Id,
   name: z.string().min(1),
-  type: z.enum(["Nap", "Splitter"]),
+  type: z.enum(['Box','Building','Property','Pop', 'Splitter', 'Nap']),
   lat: Lat,
   lng: Lng,
 });
@@ -42,5 +42,5 @@ export const CustomerSchema = z.object({
 
 export type CableIsp = z.infer<typeof CableSchema>;
 export type DropCableIsp = z.infer<typeof IspDropCableSchema>;
-export type BoxIsp = z.infer<typeof BoxSchema>;
+export type BoxIsp = z.infer<typeof IspBoxSchema>;
 export type CustomerIsp = z.infer<typeof CustomerSchema>;

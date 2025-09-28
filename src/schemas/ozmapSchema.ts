@@ -10,11 +10,11 @@ export const ProspectSchema = z.object({
   external_id: Str36.optional(),
 });
 
-export const BoxSchema = z.object({  
+export const OzmapBoxSchema = z.object({  
   name: Str100.optional(),
-  kind: z.enum(["Box", "Building", "Property", "Pop"]),
+  kind: z.enum(['Box','Building','Property','Pop', 'Splitter', 'Nap']),
   coords: z.tuple([z.number(), z.number()]),
-  external_id: Str36.optional(),
+  external_id: Str36,
   project: z.string().max(36).optional()
 });
 
@@ -46,5 +46,5 @@ export const CableSchema = z.object({
 });
 
 export type ProspectOZmap = z.infer<typeof ProspectSchema>;
-export type BoxOZmap = z.infer<typeof BoxSchema>;
+export type BoxOZmap = z.infer<typeof OzmapBoxSchema>;
 export type CableOZmap = z.infer<typeof CableSchema>;
