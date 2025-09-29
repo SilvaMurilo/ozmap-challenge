@@ -20,8 +20,8 @@ export const CableSchema = z.object({
 export const IspDropCableSchema = z.object({
   id: Id,
   name: z.string().min(1),
-  box_id: Id,
-  customer_id: Id,
+  box_id: z.coerce.number().int().positive().optional(),
+  customer_id: z.coerce.number().int().positive().optional(),
 });
 
 export const IspBoxSchema = z.object({
