@@ -7,7 +7,10 @@ CREATE TABLE boxes (
   external_id VARCHAR(36) NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  UNIQUE KEY ux_boxes_external_id (external_id),
+  INDEX idx_boxes_project (project),
+  INDEX idx_boxes_kind (kind)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE prospects (
@@ -19,7 +22,13 @@ CREATE TABLE prospects (
   box_id BIGINT UNSIGNED,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  UNIQUE KEY ux_prospects_external_id (external_id),
+  INDEX idx_prospects_box_id (box_id),
+  CONSTRAINT fk_prospects_box
+    FOREIGN KEY (box_id) REFERENCES boxes(id)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE cables (
@@ -36,5 +45,16 @@ CREATE TABLE cables (
   length DECIMAL(10,2),
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  UNIQUE KEY ux_cables_type_external (cable_type, external_id),
+  INDEX idx_cables_box_id (box_id),
+  INDEX idx_cables_project (project),
+  CONSTRAINT fk_cables_box
+    FOREIGN KEY (box_id) REFERENCES boxes(id)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE,
+  CONSTRAINT fk_cables_prospect
+    FOREIGN KEY (prospects_id) REFERENCES prospects(id)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
