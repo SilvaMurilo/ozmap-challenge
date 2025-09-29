@@ -1,5 +1,9 @@
 ## OZmap Challenge
 
+<p align="center">
+    <img src="./logo_OZmap.png" alt="demonstration" height="280"/>
+</p>
+
 Projeto de integração que lê dados de um ISP (mock JSON Server) e sincroniza para um mock de API OZmap (Express), persistindo dados relacionais em MySQL e logs em MongoDB.
 
 ### Visão Geral
