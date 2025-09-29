@@ -27,3 +27,11 @@ export async function insertProspect(dto: ProspectOZmap) {
 
   return row;
 }
+
+export async function getProspectByExternalId(externalId: string) {
+  return db
+    .selectFrom("prospects")
+    .selectAll()
+    .where("external_id", "=", externalId)
+    .executeTakeFirst();
+}

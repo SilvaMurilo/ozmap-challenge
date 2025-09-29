@@ -1,6 +1,6 @@
 import { CustomerIsp, CustomerSchema } from "../schemas/ispSchema";
 import { ProspectOZmap, ProspectSchema } from "../schemas/ozmapSchema";
-import { insertProspect } from "../repositories/prospectRepository";
+import { getProspectByExternalId, insertProspect } from "../repositories/prospectRepository";
 
 function normalizeIspProspectToOz(input: CustomerIsp): ProspectOZmap {
   return {
@@ -16,4 +16,9 @@ export async function createProspectService(raw: unknown) {
   const prospectParsed = CustomerSchema.safeParse(raw);
   const ozPayload = ProspectSchema.parse(normalizeIspProspectToOz(prospectParsed.data));
   return insertProspect(ozPayload);
+}
+
+export async function getProspectService(externalId: string) {
+  const prospect = await getProspectByExternalId(externalId);
+  return prospect ?? null;
 }
