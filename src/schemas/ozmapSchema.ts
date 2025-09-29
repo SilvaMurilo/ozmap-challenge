@@ -51,3 +51,25 @@ export const CableSchema = z.object({
 export type ProspectOZmap = z.infer<typeof ProspectSchema>;
 export type BoxOZmap = z.infer<typeof OzmapBoxSchema>;
 export type CableOZmap = z.infer<typeof CableSchema>;
+
+
+export const logLevel = z.enum(["info", "error", "warn"]);
+export const logAction = z.enum(["fetch", "save", "transform", "other"]);
+export const logEntity = z.enum(["boxes", "customers", "cables", "drop_cables", "unknown"]);
+
+
+export const logDocSchema = z.object({
+  ts: z.string(),
+  level: logLevel,
+  syncId: z.string().uuid().nullable().optional(),
+  entity: logEntity.nullable().optional(),
+  action: logAction.nullable().optional(),
+  itemId: z.string().nullable().optional(),
+  message: z.string(),
+  payload: z.unknown().optional(),
+  createdAt: z.string(),
+});
+
+export type LogEntity = z.infer<typeof logEntity>;
+export type LogAction = z.infer<typeof logAction>;
+export type LogDoc = z.infer<typeof logDocSchema>;
