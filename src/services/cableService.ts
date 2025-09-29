@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { insertCable } from "../repositories/cableRepository";
+import { getCableByTypeAndExternalId, insertCable } from "../repositories/cableRepository";
 import {
   CableSchema as IspCableSchema,
   IspDropCableSchema,
@@ -43,7 +43,11 @@ export async function createCableService(raw: unknown) {
     ozFormat = normalizeIspCableToOz(commonCableParsed.data);
   else if (dropCableParsed.success)
     ozFormat = normalizeIspDropCableToOz(dropCableParsed.data);
-
   const ozPayload = OzCableSchema.parse(ozFormat);
   return insertCable(ozPayload);
+}
+
+export async function getCableService(cableType: string, externalId: string) {
+  const cable = await getCableByTypeAndExternalId(cableType, externalId);
+  return cable ?? null;
 }

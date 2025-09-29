@@ -33,3 +33,17 @@ export async function insertCable(dto: CableOZmap) {
     poles: typeof row.poles === "string" ? JSON.parse(row.poles) : row.poles,
   };
 }
+
+export async function getCableByTypeAndExternalId(
+  cable_type: string,
+  external_id: string
+) {
+  const row = await db
+    .selectFrom("cables")
+    .selectAll()
+    .where("cable_type", "=", cable_type)
+    .where("external_id", "=", external_id)
+    .executeTakeFirst();
+
+  return row;
+}
