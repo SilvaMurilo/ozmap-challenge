@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-const Id = z.number().int().positive();
-const Lat = z.number().min(-90).max(90);
-const Lng = z.number().min(-180).max(180);
+const Id = z.coerce.number().int().positive();
+const Lat = z.coerce.number().min(-90).max(90);
+const Lng = z.coerce.number().min(-180).max(180);
 
 const GeoPointSchema = z.object({
   lat: Lat,
