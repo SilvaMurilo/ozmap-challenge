@@ -15,7 +15,7 @@ function normalizeIspCableToOz(
   return {
     cable_type: String(input.name).split(" ")[0].toUpperCase(),
     box_a: String(input.boxes_connected[0]),
-    box_b: String(input.boxes_connected[1]),
+    box_b: String(input.boxes_connected?.[1] ?? ""),
     name: input.name,
     poles: input.path,
     external_id: String(input.id),
@@ -38,12 +38,14 @@ function normalizeIspDropCableToOz(
 export async function createCableService(raw: unknown) {
   const commonCableParsed = IspCableSchema.safeParse(raw);
   const dropCableParsed = IspDropCableSchema.safeParse(raw);
+  console.log("[createCableService] Parsed cable:", commonCableParsed, dropCableParsed);
   let ozFormat;
   if (commonCableParsed.success)
     ozFormat = normalizeIspCableToOz(commonCableParsed.data);
   else if (dropCableParsed.success)
     ozFormat = normalizeIspDropCableToOz(dropCableParsed.data);
   const ozPayload = OzCableSchema.parse(ozFormat);
+  console.log("[createCableService] Inserting cable:", ozPayload);
   return insertCable(ozPayload);
 }
 
