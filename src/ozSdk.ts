@@ -36,3 +36,25 @@ export async function createProspect(body: CustomerIsp) {
   });
   return res.data;
 }
+
+export async function getCable(cableType: string = "Fiber", id: string) {
+  if (!id || !cableType) throw new Error("externalId e cableType são obrigatórios");
+  const res = await axios.get(`${OZMAP_BASE_URL}/cables/${id}`, {
+    params: { cable_type: cableType.toUpperCase() },
+  });
+  return res.data;
+}
+
+/** Busca Box por external_id */
+export async function getBox(external_id: string) {
+  if (!external_id) throw new Error("external_id é obrigatório");
+  const res = await axios.get(`${OZMAP_BASE_URL}/boxes/${external_id}`);
+  return res.data;
+}
+
+/** Busca Prospect por external_id */
+export async function getProspect(external_id: string) {
+  if (!external_id) throw new Error("external_id é obrigatório");
+  const res = await axios.get(`${OZMAP_BASE_URL}/prospects/${encodeURIComponent(external_id)}`);
+  return res.data;
+}
