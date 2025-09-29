@@ -1,11 +1,6 @@
 import { expect, it } from "vitest";
-import {
-  createLogService,
-  getLogsByEntityActionService,
-} from "../services/logService";
 import { type LogDoc } from "../schemas/ozmapSchema";
 import { createLog, getLogs } from "../ozSdk";
-import { insertLog } from "../repositories/logRepository";
 
 it("Should create a log", async () => {
   const now = String(new Date());
@@ -42,6 +37,7 @@ it("Should get action logs", async () => {
     payload: { durationMs: 42 },
     createdAt: now,
   };
+
   const created = await createLog(dto);
   const found = await getLogs("boxes", "save", 1, 10);
   expect(Array.isArray(found)).toBe(true);

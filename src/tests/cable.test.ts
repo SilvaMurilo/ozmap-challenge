@@ -1,7 +1,5 @@
 import { createCable, getCable } from "../ozSdk";
 import { expect, it } from "vitest";
-import { getCableByTypeAndExternalId } from "../repositories/cableRepository";
-import { getCableService } from "../services/cableService";
 
 it("Should create and get Cable by (cable_type, external_id)", async () => {
   const dto =  {

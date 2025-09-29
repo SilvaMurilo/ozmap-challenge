@@ -1,4 +1,4 @@
-import { createBox, createProspect, getProspect } from "../ozSdk";
+import { createProspect, getProspect } from "../ozSdk";
 import { expect, it } from "vitest";
 
 it("Should create and get Prospect by external_id", async () => {

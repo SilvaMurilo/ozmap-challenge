@@ -38,14 +38,12 @@ function normalizeIspDropCableToOz(
 export async function createCableService(raw: unknown) {
   const commonCableParsed = IspCableSchema.safeParse(raw);
   const dropCableParsed = IspDropCableSchema.safeParse(raw);
-  console.log("[createCableService] Parsed cable:", commonCableParsed, dropCableParsed);
   let ozFormat;
   if (commonCableParsed.success)
     ozFormat = normalizeIspCableToOz(commonCableParsed.data);
   else if (dropCableParsed.success)
     ozFormat = normalizeIspDropCableToOz(dropCableParsed.data);
   const ozPayload = OzCableSchema.parse(ozFormat);
-  console.log("[createCableService] Inserting cable:", ozPayload);
   return insertCable(ozPayload);
 }
 

@@ -3,7 +3,6 @@ import OZMapSDK from "@ozmap/ozmap-sdk";
 import axios from "axios";
 import { BoxIsp, CableIsp, DropCableIsp, CustomerIsp } from "./schemas/ispSchema";
 import { LogDoc } from "./schemas/ozmapSchema";
-import { createLogService } from "./services/logService";
 
 const OZMAP_BASE_URL =
   process.env.OZMAP_BASE_URL ?? "http://localhost:9994/api/v2";
