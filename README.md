@@ -35,43 +35,47 @@ npm test
 npm run test:watch
 ```
 
+Claro, aqui está apenas a seção de configuração dos bancos de dados, já aprimorada e formatada em Markdown.
+
+-----
+
 ## Configuração dos Bancos de Dados
 
-Para que a aplicação funcione corretamente, é necessário ter **MySQL** e **MongoDB** em execução e configurados no `.env` (verifique o `env.example` para referência).
+A aplicação requer instâncias do **MySQL** e **MongoDB**. Para facilitar a configuração, recomendamos o uso de Docker, mas também fornecemos as instruções para uma configuração manual.
 
+### Opção 1: Usando Docker (Recomendado)
 
-### MySQL
+Esta é a forma mais rápida e recomendada para configurar os bancos de dados, pois garante um ambiente padronizado e isolado. Na pasta `/images` do projeto, você encontrará os arquivos `docker-compose` para cada serviço.
 
-1. **Crie a base de dados** `ozmap`.  
-2. **Execute a migração** utilizando o arquivo `migration.sql`:  
+1.  **Pré-requisito:** Certifique-se de ter o [Docker](https://www.docker.com/get-started/) e o [Docker Compose](https://docs.docker.com/compose/install/) instalados.
 
-```bash
-# Ajuste os parâmetros conforme o seu ambiente/local
-mysql -h 127.0.0.1 -u desafio -pdesafio ozmap < migration.sql
-````
+2.  **Inicie os containers**:
+    Abra seu terminal na raiz do projeto e execute os seguintes comandos para iniciar cada serviço em background (`-d`):
+
+    ```bash
+    # Inicia o container do MySQL
+    docker-compose -f images/mysql.yml up -d
+
+    # Inicia o container do MongoDB
+    docker-compose -f images/mongo.yml up -d
+    ```
+
+    *Você pode verificar se os containers estão em execução com o comando `docker ps`.*
+
+3.  **Execute a migração do MySQL**:
+    Com o container do MySQL rodando, execute o script de migração. O `docker-compose` já utiliza as credenciais do `env.example`.
+
+    ```bash
+    # Ajuste os parâmetros se você alterou as credenciais padrão
+    mysql -h 127.0.0.1 -u desafio -pdesafio ozmap < migration.sql
+    ```
+
+> **Dicas de Ferramentas**
+>
+>   - **MySQL:** Para visualizar e gerenciar o banco de dados, recomenda-se o uso de [DBeaver](https://dbeaver.io/).
+>   - **MongoDB:** Para visualizar e gerenciar o banco de dados, recomenda-se o uso de [MongoDB Compass](https://www.mongodb.com/try/download/compass).
+
 ---
-
-### MongoDB
-
-1. **Garanta que o servidor MongoDB esteja rodando** (por exemplo, com `mongod` localmente ou via container Docker).
-2. **Confira no `.env`** se a URI e o banco configurados existem.
-3. **Crie o banco e as coleções** caso necessário.
-___
-
-
-> **Dicas – MySQL**
->
-> - Se estiver usando Docker, verifique se o container do MySQL está ativo antes de rodar a migração.
-> - Para visualizar e gerenciar o banco de dados, recomenda-se o uso de [DBeaver](https://dbeaver.io/) ou [MySQL Workbench](https://www.mysql.com/products/workbench/).
-
-> **Dicas – MongoDB**
->
-> - Garanta que o servidor MongoDB esteja ativo (localmente ou em container).
-> - Para visualizar e gerenciar o banco de dados, recomenda-se o uso de [MongoDB Compass](https://www.mongodb.com/try/download/compass) ou [Robo 3T](https://robomongo.org/).
-
-
-
-
 
 ### Mock do ISP (JSON Server)
 Por padrão o sincronizador lê do `ISP_BASE_URL` (default `http://localhost:3000`). Para simular um ISP local usando `mock/isp.json` e `mock/routes.json`:
