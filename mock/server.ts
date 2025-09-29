@@ -2,6 +2,8 @@ import express, { Request, Response, NextFunction } from 'express'
 import { createCableService, getCableService } from '../src/services/cableService';
 import { createBoxService, getBoxService } from '../src/services/boxService';
 import { createProspectService, getProspectService } from '../src/services/prospectService';
+import { createLogService, getLogsByEntityActionService } from '../src/services/logService';
+import { LogAction, LogEntity } from '../src/schemas/ozmapSchema';
 
 const app = express();
 app.use(express.json());
@@ -10,7 +12,6 @@ app.get('/api/v2/health', (_req: Request, res: Response) => res.json({ ok: true 
 
 app.post('/api/v2/cables', async (req: Request, res: Response) => {  
     const result = await createCableService(req.body);
-    console.log('Created cable:', result);
     return res.status(201).json(result);
 });
 
@@ -21,6 +22,11 @@ app.post('/api/v2/boxes', async (req: Request, res: Response) => {
 
 app.post('/api/v2/prospects', async (req: Request, res: Response) => {  
     const result = await createProspectService(req.body);
+    return res.status(201).json(result);
+});
+
+app.post('/api/v2/logs', async (req: Request, res: Response) => {  
+    const result = await createLogService(req.body);
     return res.status(201).json(result);
 });
 
@@ -57,6 +63,23 @@ app.get('/api/v2/prospects/:id', async (req: Request, res: Response) => {
     const result = await getProspectService(id);
     if (!result) return res.status(404).json({ error: 'Not found' });
     return res.json(result);
+});
+
+// GET http://localhost:9994/api/v2/logs?entity=boxes&action=save
+app.get('/api/v2/logs', async (req: Request, res: Response) => {
+    const entity = req.query.entity as LogEntity;
+    const action = req.query.action as LogAction;
+
+    if (!entity || !action) {
+      return res.status(400).json({ error: 'entity and action are required' });
+    }
+    const page = req.query.page ? Number(req.query.page) : 1;
+    const pageSize = req.query.pageSize ? Number(req.query.pageSize) : 50;
+
+    const logs = await getLogsByEntityActionService(entity, action, { page, pageSize });
+    if (!logs || logs.length === 0) return res.status(404).json({ error: 'No logs found' });
+
+    return res.json(logs);
 });
 
 app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
