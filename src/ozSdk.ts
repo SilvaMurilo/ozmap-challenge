@@ -2,7 +2,7 @@ import OZMapSDK from "@ozmap/ozmap-sdk";
 // import type { Cable, CreateCableDTO } from "@ozmap/ozmap-sdk";
 import axios from "axios";
 import { BoxIsp, CableIsp, DropCableIsp, CustomerIsp } from "./schemas/ispSchema";
-import { LogDoc } from "./schemas/ozmapSchema";
+import { LogAction, LogDoc, LogEntity, LogLevel } from "./schemas/ozmapSchema";
 
 const OZMAP_BASE_URL =
   process.env.OZMAP_BASE_URL ?? "http://localhost:9994/api/v2";
@@ -38,6 +38,7 @@ export async function createProspect(body: CustomerIsp) {
   return res.data;
 }
 
+//usado para testes unitários
 export async function createLog(body: LogDoc) {
   const res = await axios.post(`${OZMAP_BASE_URL}/logs`, body, {
     headers: {
@@ -45,6 +46,33 @@ export async function createLog(body: LogDoc) {
     },
   });
   return res.data;
+}
+
+//usado para o fluxo principal
+export async function logger(opts: {
+  level: LogLevel;
+  message: string;
+  entity?: LogEntity;
+  action?: LogAction;
+  itemId?: string | number | null;
+  syncId?: string;
+  payload?: unknown;
+}) {
+  try {
+    await axios.post(`${OZMAP_BASE_URL}/logs`, {
+      ts: new Date().toISOString(),
+      createdAt: new Date().toISOString(),
+      level: opts.level,
+      message: opts.message,
+      entity: opts.entity ?? "unknown",
+      action: opts.action ?? "other",
+      itemId: opts.itemId != null ? String(opts.itemId) : null,
+      syncId: opts.syncId ?? null,
+      payload: opts.payload,
+    }, { headers: { "Content-Type": "application/json" } });
+  } catch (e) {    
+    // console.debug('[log] failed', (e as any)?.message);
+  }
 }
 
 export async function getCable(cableType: string = "Fiber", id: string) {

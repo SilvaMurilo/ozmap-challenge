@@ -70,6 +70,7 @@ export const logDocSchema = z.object({
   createdAt: z.string(),
 });
 
+export type LogLevel = z.infer<typeof logLevel>;
 export type LogEntity = z.infer<typeof logEntity>;
 export type LogAction = z.infer<typeof logAction>;
 export type LogDoc = z.infer<typeof logDocSchema>;
