@@ -1,4 +1,4 @@
-import { insertBox } from "../repositories/boxRepository";
+import { getBoxByExternalId, insertBox } from "../repositories/boxRepository";
 import { BoxIsp, IspBoxSchema } from "../schemas/ispSchema";
 import { BoxOZmap, OzmapBoxSchema } from "../schemas/ozmapSchema";
 
@@ -21,4 +21,9 @@ export async function createBoxService(raw: unknown) {
   const boxParsed = IspBoxSchema.safeParse(raw);
   const ozPayload = OzmapBoxSchema.parse(normalizeIspBoxToOz(boxParsed.data));
   return insertBox(ozPayload);
+}
+
+export async function getBoxService(externalId: string) {
+  const box = await getBoxByExternalId(externalId);
+  return box ?? null;
 }

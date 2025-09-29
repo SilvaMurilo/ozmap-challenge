@@ -30,3 +30,12 @@ export async function insertBox(dto: BoxOZmap) {
 
   return row;
 }
+
+export async function getBoxByExternalId(externalId: string) {
+  const result = await db
+    .selectFrom("boxes")
+    .selectAll()
+    .where("external_id", "=", externalId)
+    .executeTakeFirst();
+    return {...result, id: +result.id, external_id: +result.external_id };
+}
